@@ -23,46 +23,51 @@ LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
 OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 SUCH DAMAGE.
  ******************************************************************************/
-package com.patternbox.axon.domain.model.order;
+package com.patternbox.axon.domain.application.command;
 
 import java.util.Date;
 
-import org.axonframework.commandhandling.annotation.CommandHandler;
-import org.axonframework.eventhandling.annotation.EventHandler;
-import org.axonframework.eventsourcing.annotation.AbstractAnnotatedAggregateRoot;
-import org.axonframework.eventsourcing.annotation.AggregateIdentifier;
-
-import com.patternbox.axon.domain.application.command.CreateOrderCommand;
-import com.patternbox.axon.domain.application.event.OrderCreatedEvent;
+import org.axonframework.commandhandling.annotation.TargetAggregateIdentifier;
 
 /**
  * @author <a href='http://www.patternbox.com'>D. Ehms, Patternbox</a>
  */
-public class Order extends AbstractAnnotatedAggregateRoot<String> {
+public class CreateOrderCommand {
 
-	private static final long serialVersionUID = 1L;
+	@TargetAggregateIdentifier
+	private final String orderId;
 
-	@AggregateIdentifier
-	private String id;
+	private final Date orderDate;
 
-	private Date orderDate;
+	private final String customerId;
 
 	/**
-	 * Default constructor to satisfy AxonFramework
+	 * Parameterized constructor
 	 */
-	public Order() {
-		super();
+	public CreateOrderCommand(String orderId, Date orderDate, String customerId) {
+		this.orderId = orderId;
+		this.orderDate = orderDate;
+		this.customerId = customerId;
 	}
 
-	@CommandHandler
-	public Order(CreateOrderCommand command) {
-		apply(new OrderCreatedEvent(command.getOrderId(), command.getOrderDate(),
-				command.getCustomerId()));
+	/**
+	 * @return the orderId
+	 */
+	public String getOrderId() {
+		return orderId;
 	}
 
-	@EventHandler
-	public void on(OrderCreatedEvent event) {
-		this.id = event.getOrderId();
-		this.orderDate = event.getOrderDate();
+	/**
+	 * @return the orderDate
+	 */
+	public Date getOrderDate() {
+		return orderDate;
+	}
+
+	/**
+	 * @return the customerId
+	 */
+	public String getCustomerId() {
+		return customerId;
 	}
 }

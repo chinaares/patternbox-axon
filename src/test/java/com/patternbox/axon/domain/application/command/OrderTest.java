@@ -23,46 +23,36 @@ LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
 OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 SUCH DAMAGE.
  ******************************************************************************/
-package com.patternbox.axon.domain.model.order;
+package com.patternbox.axon.domain.application.command;
 
 import java.util.Date;
 
-import org.axonframework.commandhandling.annotation.CommandHandler;
-import org.axonframework.eventhandling.annotation.EventHandler;
-import org.axonframework.eventsourcing.annotation.AbstractAnnotatedAggregateRoot;
-import org.axonframework.eventsourcing.annotation.AggregateIdentifier;
+import org.axonframework.test.FixtureConfiguration;
+import org.axonframework.test.Fixtures;
+import org.junit.Before;
+import org.junit.Test;
 
-import com.patternbox.axon.domain.application.command.CreateOrderCommand;
 import com.patternbox.axon.domain.application.event.OrderCreatedEvent;
+import com.patternbox.axon.domain.model.order.Order;
 
 /**
  * @author <a href='http://www.patternbox.com'>D. Ehms, Patternbox</a>
  */
-public class Order extends AbstractAnnotatedAggregateRoot<String> {
+public class OrderTest {
 
-	private static final long serialVersionUID = 1L;
+	private FixtureConfiguration<Order> fixture;
 
-	@AggregateIdentifier
-	private String id;
-
-	private Date orderDate;
-
-	/**
-	 * Default constructor to satisfy AxonFramework
-	 */
-	public Order() {
-		super();
+	@Before
+	public void setUp() throws Exception {
+		fixture = Fixtures.newGivenWhenThenFixture(Order.class);
 	}
 
-	@CommandHandler
-	public Order(CreateOrderCommand command) {
-		apply(new OrderCreatedEvent(command.getOrderId(), command.getOrderDate(),
-				command.getCustomerId()));
-	}
-
-	@EventHandler
-	public void on(OrderCreatedEvent event) {
-		this.id = event.getOrderId();
-		this.orderDate = event.getOrderDate();
+	@Test
+	public void testCreateOrder() throws Exception {
+		String orderId = "4711";
+		Date orderDate = new Date();
+		String customerId = "4712";
+		fixture.given().when(new CreateOrderCommand(orderId, orderDate, customerId))
+				.expectEvents(new OrderCreatedEvent(orderId, orderDate, customerId));
 	}
 }

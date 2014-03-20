@@ -23,46 +23,20 @@ LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
 OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 SUCH DAMAGE.
  ******************************************************************************/
-package com.patternbox.axon.domain.model.order;
+package com.patternbox.axon.domain.application.handler;
 
-import java.util.Date;
-
-import org.axonframework.commandhandling.annotation.CommandHandler;
 import org.axonframework.eventhandling.annotation.EventHandler;
-import org.axonframework.eventsourcing.annotation.AbstractAnnotatedAggregateRoot;
-import org.axonframework.eventsourcing.annotation.AggregateIdentifier;
 
-import com.patternbox.axon.domain.application.command.CreateOrderCommand;
 import com.patternbox.axon.domain.application.event.OrderCreatedEvent;
 
 /**
  * @author <a href='http://www.patternbox.com'>D. Ehms, Patternbox</a>
  */
-public class Order extends AbstractAnnotatedAggregateRoot<String> {
-
-	private static final long serialVersionUID = 1L;
-
-	@AggregateIdentifier
-	private String id;
-
-	private Date orderDate;
-
-	/**
-	 * Default constructor to satisfy AxonFramework
-	 */
-	public Order() {
-		super();
-	}
-
-	@CommandHandler
-	public Order(CreateOrderCommand command) {
-		apply(new OrderCreatedEvent(command.getOrderId(), command.getOrderDate(),
-				command.getCustomerId()));
-	}
+public class OrderEventHandler {
 
 	@EventHandler
-	public void on(OrderCreatedEvent event) {
-		this.id = event.getOrderId();
-		this.orderDate = event.getOrderDate();
+	public void handle(OrderCreatedEvent event) {
+		System.out.println("We've got something to do: " + event.getOrderId() + " ("
+				+ event.getOrderDate() + ")");
 	}
 }
