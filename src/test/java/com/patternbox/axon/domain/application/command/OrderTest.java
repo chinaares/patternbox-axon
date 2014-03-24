@@ -32,7 +32,8 @@ import org.axonframework.test.Fixtures;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.patternbox.axon.domain.application.event.OrderCreatedEvent;
+import com.patternbox.axon.application.command.CreateOrderCommand;
+import com.patternbox.axon.application.event.OrderCreatedEvent;
 import com.patternbox.axon.domain.model.order.Order;
 
 /**

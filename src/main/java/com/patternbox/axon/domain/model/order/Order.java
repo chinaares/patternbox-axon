@@ -32,8 +32,8 @@ import org.axonframework.eventhandling.annotation.EventHandler;
 import org.axonframework.eventsourcing.annotation.AbstractAnnotatedAggregateRoot;
 import org.axonframework.eventsourcing.annotation.AggregateIdentifier;
 
-import com.patternbox.axon.domain.application.command.CreateOrderCommand;
-import com.patternbox.axon.domain.application.event.OrderCreatedEvent;
+import com.patternbox.axon.application.command.CreateOrderCommand;
+import com.patternbox.axon.application.event.OrderCreatedEvent;
 
 /**
  * @author <a href='http://www.patternbox.com'>D. Ehms, Patternbox</a>

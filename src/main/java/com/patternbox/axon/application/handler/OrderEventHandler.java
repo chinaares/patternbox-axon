@@ -23,11 +23,11 @@ LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
 OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 SUCH DAMAGE.
  ******************************************************************************/
-package com.patternbox.axon.domain.application.handler;
+package com.patternbox.axon.application.handler;
 
 import org.axonframework.eventhandling.annotation.EventHandler;
 
-import com.patternbox.axon.domain.application.event.OrderCreatedEvent;
+import com.patternbox.axon.application.event.OrderCreatedEvent;
 
 /**
  * @author <a href='http://www.patternbox.com'>D. Ehms, Patternbox</a>

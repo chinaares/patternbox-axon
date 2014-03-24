@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
+    <persistence-unit name="axon" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <class>org.axonframework.sample.app.query.AddressEntry</class>
+        <class>org.axonframework.sample.app.query.ContactEntry</class>
+        <class>org.axonframework.sample.app.command.ClaimedContactName</class>
+
+        <class>org.axonframework.eventstore.jpa.DomainEventEntry</class>
+        <class>org.axonframework.eventstore.jpa.SnapshotEventEntry</class>
+        <properties>
+            <property name="hibernate.archive.autodetection" value="class"/>
+            <!--property name="hibernate.hbm2ddl.auto" value="create" /-->
+        </properties>
+    </persistence-unit>
+</persistence>
